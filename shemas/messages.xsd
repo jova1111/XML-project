@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:ns1="http://www.booking.com/sys">
+    <xs:import namespace="http://www.booking.com/sys" schemaLocation="semara.xsd"/>
+    <xs:element name="Message">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ns1:User"/>
+                <xs:element ref="ns1:Agent"/>
+            </xs:sequence>
+            <xs:attribute name="content" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
