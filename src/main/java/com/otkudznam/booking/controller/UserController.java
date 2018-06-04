@@ -1,7 +1,10 @@
 package com.otkudznam.booking.controller;
 
+import com.otkudznam.booking.auth.TokenResponse;
 import com.otkudznam.booking.model.User;
 import com.otkudznam.booking.service.UserService;
+import com.otkudznam.booking.util.DateUtil;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class UserController {
@@ -31,7 +35,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestBody User login) throws ServletException {
+    public TokenResponse login(@RequestBody User login) throws ServletException {
 
         String jwtToken = "";
 
@@ -54,10 +58,19 @@ public class UserController {
             throw new ServletException("Invalid login. Please check your name and password.");
         }
 
-        jwtToken = Jwts.builder().setSubject(email).claim("roles", "user").setIssuedAt(new Date())
+        Date expirationDate = DateUtil.getDateFromNow(DateUtil.MONTH_IN_SECONDS);
+        jwtToken = Jwts.builder().setSubject(email).claim("roles", "user").setIssuedAt(new Date()).setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
 
-        return jwtToken;
+        return new TokenResponse(jwtToken, DateUtil.MONTH_IN_SECONDS);
+    }
+
+    @RequestMapping(value = "/secure/test")
+    public String test(HttpServletRequest request) {
+        Claims claims = (Claims)request.getAttribute("claims");
+        System.out.println(claims.get("roles"));
+        claims.get("roles");
+        return "Hi.";
     }
 
 }
