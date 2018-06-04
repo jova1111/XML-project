@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Message {
 
     @XmlElement(name = "User", required = true)
-    protected TUser user;
+    protected User user;
     @XmlElement(name = "Agent", required = true)
     protected Agent agent;
     @XmlAttribute(name = "content")
@@ -57,10 +57,10 @@ public class Message {
      * 
      * @return
      *     possible object is
-     *     {@link TUser }
+     *     {@link User }
      *     
      */
-    public TUser getUser() {
+    public User getUser() {
         return user;
     }
 
@@ -69,10 +69,10 @@ public class Message {
      * 
      * @param value
      *     allowed object is
-     *     {@link TUser }
+     *     {@link User }
      *     
      */
-    public void setUser(TUser value) {
+    public void setUser(User value) {
         this.user = value;
     }
 

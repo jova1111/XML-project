@@ -50,11 +50,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TUser }
+     * Create an instance of {@link User }
      * 
      */
-    public TUser createTUser() {
-        return new TUser();
+    public User createTUser() {
+        return new User();
     }
 
     /**
@@ -107,12 +107,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TUser }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link User }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://www.booking.com/sys", name = "User")
-    public JAXBElement<TUser> createUser(TUser value) {
-        return new JAXBElement<TUser>(_User_QNAME, TUser.class, null, value);
+    public JAXBElement<User> createUser(User value) {
+        return new JAXBElement<User>(_User_QNAME, User.class, null, value);
     }
 
 }

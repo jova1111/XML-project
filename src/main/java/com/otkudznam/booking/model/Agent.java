@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
- *     &lt;extension base="{http://www.booking.com/sys}TUser">
+ *     &lt;extension base="{http://www.booking.com/sys}User">
  *       &lt;sequence>
  *         &lt;element ref="{http://www.booking.com/sys}Place"/>
  *       &lt;/sequence>
@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "Agent")
 public class Agent
-    extends TUser
+    extends User
 {
 
     @XmlElement(name = "Place", required = true)

@@ -8,6 +8,10 @@
 
 package com.otkudznam.booking.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -16,12 +20,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TUser complex type.
+ * <p>Java class for User complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="TUser">
+ * &lt;complexType name="User">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;attribute name="first_name" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -43,11 +47,16 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TUser")
+@XmlType(name = "User")
 @XmlSeeAlso({
     Agent.class
 })
-public class TUser {
+@Entity
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
 
     @XmlAttribute(name = "first_name")
     protected String firstName;
