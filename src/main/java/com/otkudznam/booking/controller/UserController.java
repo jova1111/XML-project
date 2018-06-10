@@ -51,7 +51,7 @@ public class UserController {
         if (user == null) {
             throw new ServletException("User email not found.");
         }
-
+        
         String pwd = user.getPassword();
 
         if (!password.equals(pwd)) {
@@ -64,7 +64,7 @@ public class UserController {
 
         return new TokenResponse(jwtToken, DateUtil.MONTH_IN_SECONDS);
     }
-
+    
     @RequestMapping(value = "/secure/test")
     public String test(HttpServletRequest request) {
         Claims claims = (Claims)request.getAttribute("claims");

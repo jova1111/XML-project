@@ -9,8 +9,17 @@
 package com.otkudznam.booking.model;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -66,27 +75,47 @@ import javax.xml.bind.annotation.XmlType;
     "period"
 })
 @XmlRootElement(name = "Lodging")
+@Entity
 public class Lodging {
 
-    @XmlElement(name = "Image", required = true)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	protected Long id;
+   /* @XmlElement(name = "Image", required = true)
+    @ManyToMany
     protected List<String> image;
-    @XmlElement(name = "Service")
-    protected List<Service> service;
+    */
+	@XmlElement(name = "Service")
+    
+	@ManyToMany
+	protected List<Favour> service;
     @XmlElement(name = "Place", required = true)
     protected String place;
+    @OneToOne
     @XmlElement(name = "Period", required = true)
     protected Period period;
     @XmlAttribute(name = "lodging_type")
-    protected String lodgingType;
+    @ManyToOne
+    protected LodgingType lodgingType;
     @XmlAttribute(name = "guest_number")
-    protected BigInteger guestNumber;
+    protected Integer guestNumber;
     @XmlAttribute(name = "category")
-    protected String category;
+    @ManyToOne
+    protected Category category;
     @XmlAttribute(name = "description")
     protected String description;
     @XmlAttribute(name = "rating")
     protected Float rating;
-
+    @Column 
+    protected boolean occupancy;
+    @Column
+    protected float price;
+    
+    @Column
+    protected Date fromDate;
+    @Column
+    protected Date toDate;
+    
     /**
      * Gets the value of the image property.
      * 
@@ -109,13 +138,13 @@ public class Lodging {
      * 
      * 
      */
-    public List<String> getImage() {
+ /*   public List<String> getImage() {
         if (image == null) {
             image = new ArrayList<String>();
         }
         return this.image;
     }
-
+*/
     /**
      * Gets the value of the service property.
      * 
@@ -138,13 +167,13 @@ public class Lodging {
      * 
      * 
      */
-    public List<Service> getService() {
+  /*  public List<Service> getService() {
         if (service == null) {
             service = new ArrayList<Service>();
         }
         return this.service;
     }
-
+*/
     /**
      * Gets the value of the place property.
      * 
@@ -177,10 +206,10 @@ public class Lodging {
      *     {@link Period }
      *     
      */
-    public Period getPeriod() {
+  /*  public Period getPeriod() {
         return period;
     }
-
+*/
     /**
      * Sets the value of the period property.
      * 
@@ -189,10 +218,10 @@ public class Lodging {
      *     {@link Period }
      *     
      */
-    public void setPeriod(Period value) {
+  /*  public void setPeriod(Period value) {
         this.period = value;
     }
-
+*/
     /**
      * Gets the value of the lodgingType property.
      * 
@@ -201,7 +230,7 @@ public class Lodging {
      *     {@link String }
      *     
      */
-    public String getLodgingType() {
+    public LodgingType getLodgingType() {
         return lodgingType;
     }
 
@@ -213,7 +242,7 @@ public class Lodging {
      *     {@link String }
      *     
      */
-    public void setLodgingType(String value) {
+    public void setLodgingType(LodgingType value) {
         this.lodgingType = value;
     }
 
@@ -225,7 +254,7 @@ public class Lodging {
      *     {@link BigInteger }
      *     
      */
-    public BigInteger getGuestNumber() {
+    public Integer getGuestNumber() {
         return guestNumber;
     }
 
@@ -237,7 +266,7 @@ public class Lodging {
      *     {@link BigInteger }
      *     
      */
-    public void setGuestNumber(BigInteger value) {
+    public void setGuestNumber(Integer value) {
         this.guestNumber = value;
     }
 
@@ -249,7 +278,7 @@ public class Lodging {
      *     {@link String }
      *     
      */
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
@@ -261,7 +290,7 @@ public class Lodging {
      *     {@link String }
      *     
      */
-    public void setCategory(String value) {
+    public void setCategory(Category value) {
         this.category = value;
     }
 
@@ -313,4 +342,62 @@ public class Lodging {
         this.rating = value;
     }
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<Favour> getService() {
+		return service;
+	}
+
+	public void setService(List<Favour> service) {
+		this.service = service;
+	}
+
+	public Period getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(Period period) {
+		this.period = period;
+	}
+
+	public boolean isOccupancy() {
+		return occupancy;
+	}
+
+	public void setOccupancy(boolean occupancy) {
+		this.occupancy = occupancy;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public Date getFromDate() {
+		return fromDate;
+	}
+
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+
+	public Date getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
+	}
+
+	
+    
 }

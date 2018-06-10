@@ -8,6 +8,10 @@
 
 package com.otkudznam.booking.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -36,12 +40,15 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "Service")
-public class Service {
-
+@Entity
+public class Favour {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	protected Long id;
     @XmlAttribute(name = "name")
     protected String name;
-    @XmlAttribute(name = "price")
-    protected Float price;
+   
 
     /**
      * Gets the value of the name property.
@@ -67,6 +74,14 @@ public class Service {
         this.name = value;
     }
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
     /**
      * Gets the value of the price property.
      * 
@@ -75,20 +90,5 @@ public class Service {
      *     {@link Float }
      *     
      */
-    public Float getPrice() {
-        return price;
-    }
-
-    /**
-     * Sets the value of the price property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Float }
-     *     
-     */
-    public void setPrice(Float value) {
-        this.price = value;
-    }
-
+    
 }

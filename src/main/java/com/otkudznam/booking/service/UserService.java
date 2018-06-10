@@ -10,5 +10,5 @@ public interface UserService {
     void saveOrUpdate(User user);
     List<User> findAll();
     User findByEmail(String email);
-
+    void delete(User user);
 }

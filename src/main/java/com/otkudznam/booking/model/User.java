@@ -68,6 +68,8 @@ public class User {
     protected String password;
     @XmlAttribute(name = "role")
     protected String role;
+    @XmlAttribute(name = "activity")
+    protected boolean activity;
 
     /**
      * Gets the value of the firstName property.
@@ -189,4 +191,22 @@ public class User {
         this.role = value;
     }
 
+	public boolean isActivity() {
+		return activity;
+	}
+
+	public void setActivity(boolean activity) {
+		this.activity = activity;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+    
+    
 }

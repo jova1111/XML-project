@@ -8,6 +8,11 @@
 
 package com.otkudznam.booking.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -41,10 +46,18 @@ import javax.xml.bind.annotation.XmlType;
     "place"
 })
 @XmlRootElement(name = "Agent")
+@Entity
+@Table(name="agent")
 public class Agent
-    extends User
+    
 {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	protected Long id;
+	@XmlElement(name = "Name", required = true)
+    protected String name;
+	@XmlElement(name = "Surname", required = true)
+    protected String surname;
     @XmlElement(name = "Place", required = true)
     protected String place;
     @XmlAttribute(name = "business_id")
@@ -98,4 +111,30 @@ public class Agent
         this.businessId = value;
     }
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+    
+    
 }

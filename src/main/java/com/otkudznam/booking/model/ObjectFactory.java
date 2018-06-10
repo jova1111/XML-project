@@ -66,11 +66,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Service }
+     * Create an instance of {@link Favour }
      * 
      */
-    public Service createService() {
-        return new Service();
+    public Favour createService() {
+        return new Favour();
     }
 
     /**

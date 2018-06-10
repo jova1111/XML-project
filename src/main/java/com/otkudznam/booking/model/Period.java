@@ -8,6 +8,12 @@
 
 package com.otkudznam.booking.model;
 
+import java.sql.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -39,16 +45,20 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "Period")
+@Entity
 public class Period {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	protected Long id;
     @XmlAttribute(name = "price")
     protected Float price;
     @XmlAttribute(name = "fromDate")
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar fromDate;
+    protected Date fromDate;
     @XmlAttribute(name = "toDate")
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar toDate;
+    protected Date toDate;
 
     /**
      * Gets the value of the price property.
@@ -82,7 +92,7 @@ public class Period {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getFromDate() {
+    public Date getFromDate() {
         return fromDate;
     }
 
@@ -94,7 +104,7 @@ public class Period {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setFromDate(XMLGregorianCalendar value) {
+    public void setFromDate(Date value) {
         this.fromDate = value;
     }
 
@@ -106,7 +116,7 @@ public class Period {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getToDate() {
+    public Date getToDate() {
         return toDate;
     }
 
@@ -118,7 +128,7 @@ public class Period {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setToDate(XMLGregorianCalendar value) {
+    public void setToDate(Date value) {
         this.toDate = value;
     }
 
