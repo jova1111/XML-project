@@ -1,5 +1,8 @@
 package com.otkudznam.booking.controller;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
 import java.util.Date;
 import java.util.List;
 
@@ -26,9 +29,6 @@ import com.otkudznam.booking.service.FavourService;
 import com.otkudznam.booking.service.LodgingTypeService;
 import com.otkudznam.booking.service.UserService;
 import com.otkudznam.booking.util.DateUtil;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 
 @RestController
@@ -116,7 +116,7 @@ public class AdminController {
 	@RequestMapping(value="/registerAgent", method = RequestMethod.POST)
     private ResponseEntity registerAgent(@RequestBody Agent agent) {
 		
-		System.out.println(agent.getPlace());
+		//System.out.println(agent.getPlace());
         agentService.saveOrUpdate(agent);
         return new ResponseEntity(HttpStatus.OK);
     }

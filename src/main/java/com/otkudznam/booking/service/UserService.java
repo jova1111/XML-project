@@ -1,9 +1,8 @@
 package com.otkudznam.booking.service;
 
-import com.otkudznam.booking.model.User;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+
+import com.otkudznam.booking.model.User;
 
 public interface UserService {
 

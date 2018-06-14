@@ -1,11 +1,12 @@
 package com.otkudznam.booking.service;
 
-import com.otkudznam.booking.model.User;
-import com.otkudznam.booking.repository.UserRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.otkudznam.booking.model.User;
+import com.otkudznam.booking.repository.UserRepository;
 
 @Service
 public class UserServiceImp implements UserService {
