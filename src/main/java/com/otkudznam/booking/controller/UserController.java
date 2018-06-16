@@ -35,12 +35,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public TokenResponse login(@RequestBody User login) throws ServletException {
+    public ResponseEntity login(@RequestBody User login) throws ServletException {
 
         String jwtToken = "";
 
         if (login.getEmail() == null || login.getPassword() == null) {
-            throw new ServletException("Please fill in username and password");
+            return new ResponseEntity("Please fill in username and password", HttpStatus.UNAUTHORIZED);
         }
 
         String email = login.getEmail();
@@ -48,21 +48,15 @@ public class UserController {
 
         User user = userService.findByEmail(email);
 
-        if (user == null) {
-            throw new ServletException("User email not found.");
-        }
-        
-        String pwd = user.getPassword();
-
-        if (!password.equals(pwd)) {
-            throw new ServletException("Invalid login. Please check your name and password.");
+        if (user == null || !password.equals(user.getPassword())) {
+            return new ResponseEntity("Given data is invalid.", HttpStatus.UNAUTHORIZED);
         }
 
         Date expirationDate = DateUtil.getDateFromNow(DateUtil.MONTH_IN_SECONDS);
         jwtToken = Jwts.builder().setSubject(email).claim("roles", "user").setIssuedAt(new Date()).setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
 
-        return new TokenResponse(jwtToken, DateUtil.MONTH_IN_SECONDS);
+        return new ResponseEntity(new TokenResponse(jwtToken, DateUtil.MONTH_IN_SECONDS), HttpStatus.OK);
     }
     
     @RequestMapping(value = "/secure/test")

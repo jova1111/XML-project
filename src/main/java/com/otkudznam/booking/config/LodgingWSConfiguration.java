@@ -28,7 +28,7 @@ public class LodgingWSConfiguration extends WsConfigurerAdapter {
 		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 		wsdl11Definition.setPortTypeName("LodgingsPort");
 		wsdl11Definition.setLocationUri("/ws");
-		wsdl11Definition.setTargetNamespace("http://www.booking.com/sys");
+		wsdl11Definition.setTargetNamespace("http://www.otkudznam.com/booking/model");
 		wsdl11Definition.setSchema(lodgingsSchema);
 		return wsdl11Definition;
 	}

@@ -170,7 +170,7 @@ public class AdminController {
         return new ResponseEntity(HttpStatus.OK);
     }
 	
-	@RequestMapping(value="/changeActivity", method = RequestMethod.POST)
+	/*@RequestMapping(value="/changeActivity", method = RequestMethod.POST)
     private ResponseEntity changeActivity(@RequestBody User user) {
 		
 		User userChange = new User();
@@ -182,5 +182,5 @@ public class AdminController {
 		}
 		userService.saveOrUpdate(userChange);
         return new ResponseEntity(HttpStatus.OK);
-    }
+    }*/
 }
