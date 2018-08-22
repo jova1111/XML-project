@@ -59,6 +59,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
+    
+    @XmlAttribute(name = "activity")
+    protected boolean activity;
 
     /**
      * Gets the value of the firstName property.
@@ -204,4 +207,13 @@ public class User {
         this.id = value;
     }
 
+	public boolean isActivity() {
+		return activity;
+	}
+
+	public void setActivity(boolean activity) {
+		this.activity = activity;
+	}
+
+    
 }

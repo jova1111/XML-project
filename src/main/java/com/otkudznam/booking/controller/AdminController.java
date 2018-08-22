@@ -56,6 +56,13 @@ public class AdminController {
 		return new ResponseEntity<List<User>>(categories, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/getAgents", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Agent>> getAgents() {
+
+		List<Agent> agents = agentService.findAll();
+		return new ResponseEntity<List<Agent>>(agents, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/getCategories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Category>> getCinemas() {
 
@@ -111,6 +118,11 @@ public class AdminController {
 
 	        return new TokenResponse(jwtToken, DateUtil.MONTH_IN_SECONDS);
 	    }
+	 
+	 @RequestMapping(value = "/logoutAdmin", method = RequestMethod.POST)
+	 public TokenResponse logoutAdmin() throws ServletException {
+		 return new TokenResponse("", DateUtil.MONTH_IN_SECONDS);
+	 }
 
 	
 	@RequestMapping(value="/registerAgent", method = RequestMethod.POST)
@@ -118,59 +130,64 @@ public class AdminController {
 		
 		//System.out.println(agent.getPlace());
         agentService.saveOrUpdate(agent);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(agent, HttpStatus.OK);
     }
 	
 	@RequestMapping(value="/updateCategory", method = RequestMethod.POST)
     private ResponseEntity updateCategory(@RequestBody Category category) {
 		
+		for(Category cat: categoryService.findAll()) {
+			if(cat.getCategoryName().equals(category.getCategoryName())) {
+				return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
         categoryService.saveOrUpdate(category);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(category, HttpStatus.OK);
     }
 	
 	@RequestMapping(value="/deleteCategory", method = RequestMethod.POST)
     private ResponseEntity deleteCategory(@RequestBody Category category) {
 		
         categoryService.delete(category);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(category, HttpStatus.OK);
     }
 	
 	@RequestMapping(value="/updateLodgingType", method = RequestMethod.POST)
-    private ResponseEntity updateLodgingType(@RequestBody LodgingType category) {
+    private ResponseEntity updateLodgingType(@RequestBody LodgingType type) {
 		
-		lodgingTypeService.saveOrUpdate(category);
-        return new ResponseEntity(HttpStatus.OK);
+		lodgingTypeService.saveOrUpdate(type);
+        return new ResponseEntity(type, HttpStatus.OK);
     }
 	
 	@RequestMapping(value="/deleteLodgingType", method = RequestMethod.POST)
-    private ResponseEntity deleteLodgingType(@RequestBody LodgingType category) {
+    private ResponseEntity deleteLodgingType(@RequestBody LodgingType type) {
 		
-		lodgingTypeService.delete(category);
-        return new ResponseEntity(HttpStatus.OK);
+		lodgingTypeService.delete(type);
+        return new ResponseEntity(type, HttpStatus.OK);
     }
 	
 	@RequestMapping(value="/updateFavour", method = RequestMethod.POST)
-    private ResponseEntity updateFavour(@RequestBody Favour category) {
+    private ResponseEntity updateFavour(@RequestBody Favour favour) {
 		
-		favourService.saveOrUpdate(category);
-        return new ResponseEntity(HttpStatus.OK);
+		favourService.saveOrUpdate(favour);
+        return new ResponseEntity(favour, HttpStatus.OK);
     }
 	
 	@RequestMapping(value="/deleteFavour", method = RequestMethod.POST)
-    private ResponseEntity deleteFavour(@RequestBody Favour category) {
+    private ResponseEntity deleteFavour(@RequestBody Favour favour) {
 		
-		favourService.delete(category);
-        return new ResponseEntity(HttpStatus.OK);
+		favourService.delete(favour);
+        return new ResponseEntity(favour, HttpStatus.OK);
     }
 	
 	@RequestMapping(value="/deleteUser", method = RequestMethod.POST)
-    private ResponseEntity deleteUser(@RequestBody User category) {
+    private ResponseEntity deleteUser(@RequestBody User user) {
 		
-		userService.delete(category);
-        return new ResponseEntity(HttpStatus.OK);
+		userService.delete(user);
+        return new ResponseEntity(user, HttpStatus.OK);
     }
 	
-	/*@RequestMapping(value="/changeActivity", method = RequestMethod.POST)
+	@RequestMapping(value="/changeActivity", method = RequestMethod.POST)
     private ResponseEntity changeActivity(@RequestBody User user) {
 		
 		User userChange = new User();
@@ -181,6 +198,6 @@ public class AdminController {
 			userChange.setActivity(true);
 		}
 		userService.saveOrUpdate(userChange);
-        return new ResponseEntity(HttpStatus.OK);
-    }*/
+        return new ResponseEntity(userChange, HttpStatus.OK);
+    }
 }
