@@ -75,6 +75,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @Entity
 public class Lodging {
 
+	@OneToMany
+	protected List<Period> periods;
     @XmlElement(required = true)
     @OneToMany
     protected List<ImageUrl> imageUrls;
@@ -513,5 +515,15 @@ public class Lodging {
     public void setToDate(Date value) {
         this.toDate = value;
     }
+
+	public List<Period> getPeriods() {
+		return periods;
+	}
+
+	public void setPeriods(List<Period> periods) {
+		this.periods = periods;
+	}
+    
+    
 
 }
