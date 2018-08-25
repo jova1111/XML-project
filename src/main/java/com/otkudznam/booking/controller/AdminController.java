@@ -1,10 +1,12 @@
 package com.otkudznam.booking.controller;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 
@@ -20,11 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.otkudznam.booking.auth.TokenResponse;
 import com.otkudznam.booking.model.Agent;
 import com.otkudznam.booking.model.Category;
+import com.otkudznam.booking.model.Comment;
 import com.otkudznam.booking.model.Favour;
 import com.otkudznam.booking.model.LodgingType;
 import com.otkudznam.booking.model.User;
 import com.otkudznam.booking.service.AgentService;
 import com.otkudznam.booking.service.CategoryService;
+import com.otkudznam.booking.service.CommentService;
 import com.otkudznam.booking.service.FavourService;
 import com.otkudznam.booking.service.LodgingTypeService;
 import com.otkudznam.booking.service.UserService;
@@ -49,10 +53,13 @@ public class AdminController {
 	@Autowired
 	private FavourService favourService;
 	
+	@Autowired
+	private CommentService commentService;
+	
 	@RequestMapping(value="/getUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<User>> getUsers() {
 
-		List<User> categories = userService.findAll();
+		List<User> categories = userService.findByRole("USER");
 		return new ResponseEntity<List<User>>(categories, HttpStatus.OK);
 	}
 	
@@ -82,6 +89,13 @@ public class AdminController {
 
 		List<Favour> categories = favourService.findAll();
 		return new ResponseEntity<List<Favour>>(categories, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/getDisapproveComments", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Comment>> getDisapproveComments() {
+
+		List<Comment> comments = commentService.findByApproved(false);
+		return new ResponseEntity<List<Comment>>(comments, HttpStatus.OK);
 	}
 	
 	 @RequestMapping(value = "/loginAdmin", method = RequestMethod.POST)
@@ -118,12 +132,6 @@ public class AdminController {
 
 	        return new TokenResponse(jwtToken, DateUtil.MONTH_IN_SECONDS);
 	    }
-	 
-	 @RequestMapping(value = "/logoutAdmin", method = RequestMethod.POST)
-	 public TokenResponse logoutAdmin() throws ServletException {
-		 return new TokenResponse("", DateUtil.MONTH_IN_SECONDS);
-	 }
-
 	
 	@RequestMapping(value="/registerAgent", method = RequestMethod.POST)
     private ResponseEntity registerAgent(@RequestBody Agent agent) {
@@ -155,6 +163,11 @@ public class AdminController {
 	@RequestMapping(value="/updateLodgingType", method = RequestMethod.POST)
     private ResponseEntity updateLodgingType(@RequestBody LodgingType type) {
 		
+		for(LodgingType t: lodgingTypeService.findAll()) {
+			if(t.getTypeName().equals(type.getTypeName())) {
+				return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 		lodgingTypeService.saveOrUpdate(type);
         return new ResponseEntity(type, HttpStatus.OK);
     }
@@ -169,6 +182,11 @@ public class AdminController {
 	@RequestMapping(value="/updateFavour", method = RequestMethod.POST)
     private ResponseEntity updateFavour(@RequestBody Favour favour) {
 		
+		for(Favour t: favourService.findAll()) {
+			if(t.getName().equals(favour.getName())) {
+				return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 		favourService.saveOrUpdate(favour);
         return new ResponseEntity(favour, HttpStatus.OK);
     }
@@ -199,5 +217,15 @@ public class AdminController {
 		}
 		userService.saveOrUpdate(userChange);
         return new ResponseEntity(userChange, HttpStatus.OK);
+    }
+	
+	@RequestMapping(value="/approveComment", method = RequestMethod.POST)
+    private ResponseEntity approveComment(@RequestBody Comment comment) {
+		
+	//	Comment commentChange = new Comment();
+		Optional<Comment> commentChange = commentService.findById(comment.getId());
+		commentChange.get().setApproved(true);
+		commentService.saveOrUpdate(commentChange.get());
+        return new ResponseEntity(commentChange.get(), HttpStatus.OK);
     }
 }

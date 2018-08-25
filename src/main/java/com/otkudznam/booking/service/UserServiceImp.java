@@ -33,4 +33,9 @@ public class UserServiceImp implements UserService {
     public void delete(User user){
     	userRepository.deleteById(user.getId());
     }
+    
+    @Override
+    public List<User> findByRole(String role){
+    	return userRepository.findByRole(role);
+    }
 }
