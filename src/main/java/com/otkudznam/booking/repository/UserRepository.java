@@ -11,6 +11,8 @@ import com.otkudznam.booking.model.User;
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     List<User> findAll();
-
+    List<User> findByRole(String role);
+    
     User findByEmail(String email);
+   
 }

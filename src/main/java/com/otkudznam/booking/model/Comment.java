@@ -62,7 +62,8 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
-
+    @XmlAttribute(name = "approved")
+    protected boolean approved;
     /**
      * Gets the value of the publisher property.
      * 
@@ -159,4 +160,13 @@ public class Comment {
         this.id = value;
     }
 
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
+    
 }

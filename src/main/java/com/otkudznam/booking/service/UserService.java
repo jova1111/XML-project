@@ -10,4 +10,5 @@ public interface UserService {
     List<User> findAll();
     User findByEmail(String email);
     void delete(User user);
+    List<User> findByRole(String role);
 }
