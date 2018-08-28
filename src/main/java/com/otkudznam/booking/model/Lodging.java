@@ -110,12 +110,7 @@ public class Lodging {
     protected Double price;
     @XmlAttribute(name = "location")
     protected String location;
-    @XmlAttribute(name = "fromDate")
-    @XmlSchemaType(name = "date")
-    protected Date fromDate;
-    @XmlAttribute(name = "toDate")
-    @XmlSchemaType(name = "date")
-    protected Date toDate;
+
 
     /**
      * Gets the value of the imageUrls property.
@@ -466,54 +461,6 @@ public class Lodging {
      */
     public void setLocation(String value) {
         this.location = value;
-    }
-
-    /**
-     * Gets the value of the fromDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public Date getFromDate() {
-        return fromDate;
-    }
-
-    /**
-     * Sets the value of the fromDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setFromDate(Date value) {
-        this.fromDate = value;
-    }
-
-    /**
-     * Gets the value of the toDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public Date getToDate() {
-        return toDate;
-    }
-
-    /**
-     * Sets the value of the toDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setToDate(Date value) {
-        this.toDate = value;
     }
 
 	public List<Period> getPeriods() {
