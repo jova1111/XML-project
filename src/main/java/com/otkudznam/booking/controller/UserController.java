@@ -61,9 +61,7 @@ public class UserController {
     
     @RequestMapping(value = "/secure/test")
     public String test(HttpServletRequest request) {
-        Claims claims = (Claims)request.getAttribute("claims");
-        System.out.println(claims.get("roles"));
-        claims.get("roles");
+        System.out.println(request.getAttribute("userEmail"));
         return "Hi.";
     }
 
