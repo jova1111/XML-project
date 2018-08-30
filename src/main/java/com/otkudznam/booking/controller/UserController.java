@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity login(@RequestBody User login) throws ServletException {
+    public ResponseEntity login(@RequestBody User login, HttpServletRequest request ) throws ServletException {
 
         String jwtToken = "";
 
@@ -47,22 +47,32 @@ public class UserController {
         String password = login.getPassword();
 
         User user = userService.findByEmail(email);
-
+        
         if (user == null || !password.equals(user.getPassword())) {
             return new ResponseEntity("Given data is invalid.", HttpStatus.UNAUTHORIZED);
         }
-
+        
+       
         Date expirationDate = DateUtil.getDateFromNow(DateUtil.MONTH_IN_SECONDS);
         jwtToken = Jwts.builder().setSubject(email).claim("roles", "user").setIssuedAt(new Date()).setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+        
+        
 
         return new ResponseEntity(new TokenResponse(jwtToken, DateUtil.MONTH_IN_SECONDS), HttpStatus.OK);
     }
     
+    @RequestMapping(value = "/secure/getUser", method = RequestMethod.GET)
+    public User getUser(HttpServletRequest request) {
+
+    	String email = request.getAttribute("userEmail").toString();
+    	User user = userService.findByEmail(email);
+    	return user;
+    }
     @RequestMapping(value = "/secure/test")
     public String test(HttpServletRequest request) {
         System.out.println(request.getAttribute("userEmail"));
         return "Hi.";
     }
-
+    
 }
