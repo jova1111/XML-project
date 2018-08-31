@@ -10,7 +10,15 @@ package com.otkudznam.booking.model;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -18,6 +26,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+
 
 
 /**
@@ -63,21 +72,31 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "comments",
     "favours"
 })
+@Entity
 public class Lodging {
 
+	@OneToMany
+	protected List<Period> periods;
     @XmlElement(required = true)
+    @OneToMany
     protected List<ImageUrl> imageUrls;
     @XmlElement(required = true)
+    @ManyToOne
     protected LodgingType lodgingType;
     @XmlElement(required = true)
+    @ManyToOne
     protected Category category;
     @XmlElement(required = true)
+    @ManyToOne
     protected Agent agent;
+    @OneToMany
     protected List<Comment> comments;
+    @ManyToMany
     protected List<Favour> favours;
     @XmlAttribute(name = "naziv")
     protected String naziv;
     @XmlAttribute(name = "id")
+    @Id
     protected Long id;
     @XmlAttribute(name = "guestNumber")
     protected BigInteger guestNumber;
@@ -91,13 +110,13 @@ public class Lodging {
     protected Double price;
     @XmlAttribute(name = "location")
     protected String location;
-    @XmlAttribute(name = "fromDate")
+  /* @XmlAttribute(name = "fromDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar fromDate;
     @XmlAttribute(name = "toDate")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar toDate;
-
+*/
     /**
      * Gets the value of the imageUrls property.
      * 
@@ -120,6 +139,8 @@ public class Lodging {
      * 
      * 
      */
+    
+    
     public List<ImageUrl> getImageUrls() {
         if (imageUrls == null) {
             imageUrls = new ArrayList<ImageUrl>();
@@ -127,7 +148,31 @@ public class Lodging {
         return this.imageUrls;
     }
 
-    /**
+    public List<Period> getPeriods() {
+		return periods;
+	}
+
+	public void setPeriods(List<Period> periods) {
+		this.periods = periods;
+	}
+
+	public Boolean getOccupancy() {
+		return occupancy;
+	}
+
+	public void setImageUrls(List<ImageUrl> imageUrls) {
+		this.imageUrls = imageUrls;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public void setFavours(List<Favour> favours) {
+		this.favours = favours;
+	}
+
+	/**
      * Gets the value of the lodgingType property.
      * 
      * @return
@@ -457,7 +502,7 @@ public class Lodging {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getFromDate() {
+ /*   public XMLGregorianCalendar getFromDate() {
         return fromDate;
     }
 
@@ -469,7 +514,7 @@ public class Lodging {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setFromDate(XMLGregorianCalendar value) {
+/*    public void setFromDate(XMLGregorianCalendar value) {
         this.fromDate = value;
     }
 
@@ -481,7 +526,7 @@ public class Lodging {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getToDate() {
+ /*   public XMLGregorianCalendar getToDate() {
         return toDate;
     }
 
@@ -493,8 +538,8 @@ public class Lodging {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setToDate(XMLGregorianCalendar value) {
+ /*   public void setToDate(XMLGregorianCalendar value) {
         this.toDate = value;
     }
-
+*/
 }

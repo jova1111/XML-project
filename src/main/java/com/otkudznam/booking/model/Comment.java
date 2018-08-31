@@ -7,7 +7,12 @@
 
 
 package com.otkudznam.booking.model;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Column;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -42,18 +47,35 @@ import javax.xml.bind.annotation.XmlType;
     "publisher",
     "lodging"
 })
+@Entity
 public class Comment {
 
     @XmlElement(required = true)
+    @OneToOne
     protected User publisher;
     @XmlElement(required = true)
+    @OneToOne
     protected Lodging lodging;
     @XmlAttribute(name = "content")
     protected String content;
     @XmlAttribute(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
+    @XmlAttribute(name = "approved")
+    protected boolean approved;
 
-    /**
+    
+    
+    public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
+	/**
      * Gets the value of the publisher property.
      * 
      * @return

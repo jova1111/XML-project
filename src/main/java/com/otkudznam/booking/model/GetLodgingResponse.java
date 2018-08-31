@@ -306,4 +306,36 @@ public class GetLodgingResponse {
         return this.favours;
     }
 
+	public void setLodgings(List<Lodging> lodgings) {
+		this.lodgings = lodgings;
+	}
+
+	public void setImageUris(List<ImageUrl> imageUris) {
+		this.imageUris = imageUris;
+	}
+
+	public void setLodgingTypes(List<LodgingType> lodgingTypes) {
+		this.lodgingTypes = lodgingTypes;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+
+	public void setAgents(List<Agent> agents) {
+		this.agents = agents;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public void setFavours(List<Favour> favours) {
+		this.favours = favours;
+	}
+    
 }

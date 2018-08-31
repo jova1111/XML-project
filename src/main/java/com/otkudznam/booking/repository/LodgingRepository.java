@@ -12,5 +12,6 @@ import java.util.Optional;
 public interface LodgingRepository extends PagingAndSortingRepository<Lodging, Long> {
     List<Lodging> findAll();
     Optional<Lodging> findById(Long id);
-    List<Lodging> findByLocationIgnoreCaseContainingAndFromDateBeforeAndToDateAfter(String location, Date from, Date to);
+  //  List<Lodging> findByLocationIgnoreCaseContainingAndFromDateBeforeAndToDateAfter(String location, Date from, Date to);
+    List<Lodging> findByLocationIgnoreCaseContaining(String city);
 }
