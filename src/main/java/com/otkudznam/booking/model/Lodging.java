@@ -11,6 +11,7 @@ package com.otkudznam.booking.model;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -65,6 +66,16 @@ import javax.xml.datatype.XMLGregorianCalendar;
 })
 public class Lodging {
 
+    public List<Period> getPeriods() {
+        return periods;
+    }
+
+    public void setPeriods(List<Period> periods) {
+        this.periods = periods;
+    }
+
+    @OneToMany
+    protected List<Period> periods;
     @XmlElement(required = true)
     protected List<ImageUrl> imageUrls;
     @XmlElement(required = true)
