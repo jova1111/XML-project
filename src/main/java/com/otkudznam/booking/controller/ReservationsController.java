@@ -1,19 +1,14 @@
 package com.otkudznam.booking.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.otkudznam.booking.model.Reservations;
 import com.otkudznam.booking.service.ReservationService;
+
+import java.util.Optional;
 
 @RestController
 public class ReservationsController {
@@ -39,4 +34,9 @@ public class ReservationsController {
 	        return new ResponseEntity(reservations, HttpStatus.OK);
 	    }
 	    */
+ 	@RequestMapping(value="/secure/reservations/{id}", method = RequestMethod.GET)
+	private ResponseEntity newReservation(@PathVariable("id")Long id) {
+	 	Optional<Reservations> reservation = reservationService.findById(id);
+	 	return new ResponseEntity(reservation.get(), HttpStatus.OK);
+	 }
 }

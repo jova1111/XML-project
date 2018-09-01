@@ -214,4 +214,7 @@ public class User {
         this.id = value;
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }

@@ -25,7 +25,7 @@ public class JwtFilter extends GenericFilterBean {
             response.setStatus(HttpServletResponse.SC_OK);
             chain.doFilter(req, res);
         } else {
-
+            System.out.println("authorization " + authHeader);
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
                 response.setStatus(401);
                 return;
