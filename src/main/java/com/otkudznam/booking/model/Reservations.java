@@ -1,6 +1,5 @@
 package com.otkudznam.booking.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,7 +27,7 @@ public class Reservations {
 	@ManyToOne
 	protected User User;
 	
-	protected Boolean Activated;
+	protected boolean Activated;
 	
 
 	public Long getId() {
@@ -63,11 +62,11 @@ public class Reservations {
 		this.User = user;
 	}
 
-	public Boolean getActivated() {
+	public boolean getActivated() {
 		return Activated;
 	}
 
-	public void setActivated(Boolean activated) {
+	public void setActivated(boolean activated) {
 		Activated = activated;
 	}
 	

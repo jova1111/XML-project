@@ -7,7 +7,10 @@
 
 
 package com.otkudznam.booking.model;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -37,6 +40,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Agent")
+@Entity
 public class Agent {
 
     @XmlAttribute(name = "firstName")
@@ -48,6 +52,8 @@ public class Agent {
     @XmlAttribute(name = "adress")
     protected String adress;
     @XmlAttribute(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
     /**

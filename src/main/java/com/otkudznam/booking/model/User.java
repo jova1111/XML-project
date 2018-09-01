@@ -7,7 +7,11 @@
 
 
 package com.otkudznam.booking.model;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Column;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -38,6 +42,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "User")
+@Entity
 public class User {
 
     @XmlAttribute(name = "first_name")
@@ -51,9 +56,21 @@ public class User {
     @XmlAttribute(name = "role")
     protected String role;
     @XmlAttribute(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
+    @XmlAttribute(name = "activity")
+    protected boolean activity;
+    
+    
+	public boolean isActivity() {
+		return activity;
+	}
+ 	public void setActivity(boolean activity) {
+		this.activity = activity;
+	}
 
-    /**
+	/**
      * Gets the value of the firstName property.
      * 
      * @return
