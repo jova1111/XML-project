@@ -1,8 +1,10 @@
 package com.otkudznam.booking.model;
 
-import org.apache.catalina.User;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlAttribute;
 
 @Entity
@@ -87,3 +89,4 @@ public class Message {
         this.content = content;
     }
 }
+

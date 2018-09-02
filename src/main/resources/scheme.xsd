@@ -1,7 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
-    xmlns:sys="http://www.otkudznam.com/booking/model"
-    targetNamespace="http://www.otkudznam.com/booking/model">
+    xmlns:sys="http://www.booking.com/sys" targetNamespace="http://www.booking.com/sys">
+    <xs:complexType name="Lodging">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="imageUrls" type="sys:ImageUrl"/>
+            <xs:element name="lodgingType" type="sys:LodgingType"/>
+            <xs:element name="category" type="sys:Category"/>
+            <xs:element name="agent" type="sys:Agent"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="comments" type="sys:Comment"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="favours" type="sys:Favour"/>
+            <xs:element name="location" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" name="periods" type="sys:Period"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="reservations"
+                type="sys:Reservations"/>
+        </xs:sequence>
+        <xs:attribute name="guestNumber" type="xs:int"/>
+        <xs:attribute name="price" type="xs:double"/>
+        <xs:attribute name="rating" type="xs:double"/>
+        <xs:attribute name="occupancy" type="xs:boolean"/>
+        <xs:attribute name="id" type="xs:long"/>
+        <xs:attribute name="description" type="xs:string"/>
+        <xs:attribute name="name" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="ImageUrl">
+        <xs:attribute name="url" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="LodgingType">
+        <xs:attribute name="typeName" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="Category">
+        <xs:attribute name="categoryName" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="Agent">
+        <xs:attribute name="firstName" type="xs:string"/>
+        <xs:attribute name="lastName" type="xs:string"/>
+        <xs:attribute name="businessId" type="xs:string"/>
+        <xs:attribute name="adress" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="User">
+        <xs:attribute name="first_name" type="xs:string"/>
+        <xs:attribute name="last_name" type="xs:string"/>
+        <xs:attribute name="email" type="xs:string"/>
+        <xs:attribute name="password" type="xs:string"/>
+        <xs:attribute name="role" type="xs:string"> </xs:attribute>
+        <xs:attribute name="activity" type="xs:boolean"/>
+    </xs:complexType>
     <xs:element name="getLodgingRequest">
         <xs:complexType>
             <xs:sequence>
@@ -13,73 +56,48 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element maxOccurs="unbounded" name="lodgings" type="sys:Lodging"/>
-                <xs:element maxOccurs="unbounded" name="imageUris" type="sys:ImageUrl"/>
-                <xs:element maxOccurs="unbounded" name="lodgingTypes" type="sys:LodgingType"/>
-                <xs:element maxOccurs="unbounded" name="categories" type="sys:Category"/>
-                <xs:element maxOccurs="unbounded" name="agents" type="sys:Agent"/>
-                <xs:element maxOccurs="unbounded" name="users" type="sys:User"/>
-                <xs:element maxOccurs="unbounded" name="comments" type="sys:Comment"/>
-                <xs:element maxOccurs="unbounded" name="favours" type="sys:Favour"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:complexType name="Lodging">
-        <xs:sequence>
-            <xs:element maxOccurs="unbounded" name="imageUrls" type="sys:ImageUrl"/>
-            <xs:element name="lodgingType" type="sys:LodgingType"/>
-            <xs:element name="category" type="sys:Category"/>
-            <xs:element name="agent" type="sys:Agent"/>
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="comments" type="sys:Comment"/>
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="favours" type="sys:Favour"/>
-        </xs:sequence>
-        <xs:attribute name="naziv" type="xs:string"/>
-        <xs:attribute name="id" type="xs:long"/>
-        <xs:attribute name="guestNumber" type="xs:integer"/>
-        <xs:attribute name="description" type="xs:string"/>
-        <xs:attribute name="rating" type="xs:double"/>
-        <xs:attribute name="occupancy" type="xs:boolean"/>
-        <xs:attribute name="price" type="xs:double"/>
-        <xs:attribute name="location" type="xs:string"/>
-        <xs:attribute name="fromDate" type="xs:date"/>
-        <xs:attribute name="toDate" type="xs:date"/>
-    </xs:complexType>
-    <xs:complexType name="ImageUrl">
-        <xs:attribute name="url" type="xs:string"/>
-        <xs:attribute name="id" type="xs:long"/>
-    </xs:complexType>
-    <xs:complexType name="LodgingType">
-        <xs:attribute name="typeName" type="xs:string"/>
-        <xs:attribute name="id" type="xs:long"/>
-    </xs:complexType>
-    <xs:complexType name="Category">
-        <xs:attribute name="categoryName" type="xs:string"/>
-        <xs:attribute name="id" type="xs:long"/>
-    </xs:complexType>
-    <xs:complexType name="Agent">
-        <xs:attribute name="firstName" type="xs:string"/>
-        <xs:attribute name="lastName" type="xs:string"/>
-        <xs:attribute name="businessId" type="xs:string"/>
-        <xs:attribute name="adress" type="xs:string"/>
-        <xs:attribute name="id" type="xs:long"/>
-    </xs:complexType>
-    <xs:complexType name="User">
-        <xs:attribute name="first_name" type="xs:string"/>
-        <xs:attribute name="last_name" type="xs:string"/>
-        <xs:attribute name="email" type="xs:string"/>
-        <xs:attribute name="password" type="xs:string"/>
-        <xs:attribute name="role" type="xs:string"> </xs:attribute>
-        <xs:attribute name="id" type="xs:long"/>
-    </xs:complexType>
     <xs:complexType name="Comment">
         <xs:sequence>
             <xs:element name="publisher" type="sys:User"/>
             <xs:element name="lodging" type="sys:Lodging"/>
         </xs:sequence>
         <xs:attribute name="content" type="xs:string"/>
-        <xs:attribute name="id" type="xs:long"/>
+        <xs:attribute name="approved" type="xs:boolean"/>
     </xs:complexType>
     <xs:complexType name="Favour">
         <xs:attribute name="name" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="Period">
+        <xs:attribute name="dateFrom" type="xs:date"/>
+        <xs:attribute name="dateTo" type="xs:date"/>
+        <xs:attribute name="reserved" type="xs:boolean"/>
+    </xs:complexType>
+    <xs:complexType name="Reservations">
+        <xs:sequence>
+            <xs:element name="lodging" type="sys:Lodging"/>
+            <xs:element name="user" type="sys:User"/>
+            <xs:element name="period" type="sys:Period"/>
+        </xs:sequence>
+        <xs:attribute name="Activated" type="xs:boolean"/>
         <xs:attribute name="id" type="xs:long"/>
     </xs:complexType>
+    <xs:element name="setPeriodRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="period" type="sys:Period"/>
+                <xs:element name="lodgingName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="setReservation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reservation" type="sys:Reservations"/>
+                <xs:element name="lodgingName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>
