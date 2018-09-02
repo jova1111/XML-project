@@ -19,6 +19,11 @@ public class MessageServiceImp implements MessageService {
     }
 
     @Override
+    public List<Message> findBySenderIdAndSendingUserType(Long senderId, UserType sendingUserType) {
+        return messageRepository.findBySenderIdAndSendingUserType(senderId, sendingUserType);
+    }
+
+    @Override
     public Message saveOrUpdate(Message message) {
         return messageRepository.save(message);
     }

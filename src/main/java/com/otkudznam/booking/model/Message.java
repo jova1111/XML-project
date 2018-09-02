@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlAttribute;
+import java.util.Date;
 
 @Entity
 public class Message {
@@ -30,8 +31,17 @@ public class Message {
     @XmlAttribute(name = "receiving_user_type")
     protected UserType receivingUserType;
 
+    @XmlAttribute(name = "sending_user_type")
+    protected UserType sendingUserType;
+
     @XmlAttribute(name = "content")
     protected String content;
+
+    @XmlAttribute(name = "seen")
+    protected Boolean seen;
+
+    @XmlAttribute(name = "date_sent")
+    protected Date dateSent;
 
     public Long getId() {
         return id;
@@ -87,6 +97,31 @@ public class Message {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+
+    public UserType getSendingUserType() {
+        return sendingUserType;
+    }
+
+    public void setSendingUserType(UserType sendingUserType) {
+        this.sendingUserType = sendingUserType;
+    }
+
+    public Date getDateSent() {
+        return dateSent;
+    }
+
+    public void setDateSent(Date dateSent) {
+        this.dateSent = dateSent;
+    }
+
+    public Boolean getSeen() {
+        return seen;
+    }
+
+    public void setSeen(Boolean seen) {
+        this.seen = seen;
     }
 }
 

@@ -11,4 +11,5 @@ import java.util.List;
 public interface MessageRepository extends PagingAndSortingRepository<Message, Long> {
     List<Message> findByReceiverIdAndReceivingUserType(Long receiverId, UserType receivingUserType);
 
+    List<Message> findBySenderIdAndSendingUserType(Long senderId, UserType sendingUserType);
 }
