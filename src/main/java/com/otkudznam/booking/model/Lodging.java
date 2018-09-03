@@ -446,4 +446,6 @@ public class Lodging {
 			this.description = description;
 		}
 
+
+
 }

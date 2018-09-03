@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository extends PagingAndSortingRepository<Message, Long> {
-
 	List<Message> getByReciverId(String reciverId);
   	List<Message> getBySenderId(String senderId);
 }

@@ -57,4 +57,5 @@ public class MessageController {
         messageService.saveOrUpdate(message);
         return new ResponseEntity(HttpStatus.OK);
     }
+
 }
