@@ -30,4 +30,10 @@ public class ReservationServiceImp implements ReservationService {
 		// TODO Auto-generated method stub
 		return reservationRepository.save(reservation);
 	}
+
+	@Override
+	public void delete(Reservations reservation) {
+		// TODO Auto-generated method stub
+		reservationRepository.delete(reservation);
+	}
 }

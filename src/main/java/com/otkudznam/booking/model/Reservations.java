@@ -147,9 +147,6 @@ public class Reservations {
      *     {@link Boolean }
      *     
      */
-    public Boolean isActivated() {
-        return activated;
-    }
 
     /**
      * Sets the value of the activated property.
