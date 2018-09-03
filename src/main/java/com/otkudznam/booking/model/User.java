@@ -213,4 +213,9 @@ public class User {
 	        return firstName + " " + lastName;
 	    }
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	 
 }

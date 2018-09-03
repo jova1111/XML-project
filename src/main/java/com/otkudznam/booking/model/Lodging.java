@@ -105,7 +105,35 @@ public class Lodging {
    
     @XmlAttribute(name = "description")
     protected String description;
-    /**
+    
+    
+    
+    
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setImageUrls(List<ImageUrl> imageUrls) {
+		this.imageUrls = imageUrls;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public void setFavours(List<Favour> favours) {
+		this.favours = favours;
+	}
+
+	public void setPeriods(List<Period> periods) {
+		this.periods = periods;
+	}
+
+	/**
      * Gets the value of the imageUrls property.
      * 
      * <p>
@@ -389,10 +417,8 @@ public class Lodging {
         this.rating = value;
     }
 
-	public void setPeriods(ArrayList<Period> periods) {
-		this.periods = periods;
-		
-	}
+	
+	
 
 	  public String getName() {
 	        return name;
@@ -420,10 +446,7 @@ public class Lodging {
 			this.description = description;
 		}
 
-		public void setImageUrls(ArrayList<ImageUrl> images) {
-			this.imageUrls = images;
-			
-		}
+		
 
 		
 }

@@ -1,19 +1,25 @@
 package com.otkudznam.booking.controller;
 
-import com.otkudznam.booking.model.User;
-import com.otkudznam.booking.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import com.otkudznam.booking.model.Reservations;
-import com.otkudznam.booking.service.ReservationService;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.otkudznam.booking.model.Reservations;
+import com.otkudznam.booking.model.User;
+import com.otkudznam.booking.service.PeriodService;
+import com.otkudznam.booking.service.ReservationService;
+import com.otkudznam.booking.service.UserService;
 
 @RestController
 public class ReservationsController {
@@ -24,24 +30,9 @@ public class ReservationsController {
 	@Autowired
 	UserService userService;
 	
-	 @RequestMapping(value="/newReservation", method = RequestMethod.POST)
-	    private ResponseEntity newReservation(@RequestBody Reservations reservation) {
-	      
-	        reservationService.save(reservation);
-	        return new ResponseEntity(HttpStatus.OK);
-	 }
-	 /*
-	 @RequestMapping(value = "/reservation/{id}", method = RequestMethod.GET)
-	    private ResponseEntity getById(@PathVariable("id")Long id) {
-	        List<Reservations> reservations = reservationService.findAll();
-	        for(int i=0; i < reservations.size(); i++){
-	        	if(reservations.get(i).getUser().getId() == id){
-	        		
-	        	}
-	        }
-	        return new ResponseEntity(reservations, HttpStatus.OK);
-	    }
-	    */
+	@Autowired
+	PeriodService periodService;
+
  	@RequestMapping(value="/secure/reservations/{id}", method = RequestMethod.GET)
 	private ResponseEntity newReservation(@PathVariable("id")Long id, HttpServletRequest request) {
 	 	Optional<Reservations> reservation = reservationService.findById(id);
@@ -64,5 +55,24 @@ public class ReservationsController {
 			}
 		}
 		return new ResponseEntity(temp, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/delreservation/{id}", method = RequestMethod.DELETE)
+	private ResponseEntity deleteReservations(@PathVariable("id")Long id) {
+		Reservations reservation =reservationService.findById(id).get();
+		reservation.getPeriod().setReserved(false);
+		periodService.save(reservation.getPeriod());
+		reservationService.delete(reservation);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value ="/newreservation", method = RequestMethod.POST)
+	private ResponseEntity newReserv(@RequestBody Reservations reservation) {
+	 	System.out.println("UNISO");
+	 	reservation.getPeriod().setReserved(true);
+	 	periodService.save(reservation.getPeriod());
+	 	
+        reservationService.save(reservation);
+        return new ResponseEntity(HttpStatus.OK);
 	}
 }

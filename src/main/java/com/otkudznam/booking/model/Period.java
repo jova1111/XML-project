@@ -52,9 +52,6 @@ public class Period {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Long id;
-	@XmlElement(required = true)
-	@ManyToOne
-	protected Lodging lodging;
     @XmlAttribute(name = "dateFrom")
     @XmlSchemaType(name = "date")
     protected Date dateFrom;
@@ -135,15 +132,13 @@ public class Period {
     public void setReserved(Boolean value) {
         this.reserved = value;
     }
-
-	public Lodging getLodging() {
-		return lodging;
+    
+    public Long getId() {
+		return id;
 	}
 
-	public void setLodging(Lodging lodging) {
-		this.lodging = lodging;
+	public void setId(Long id) {
+		this.id = id;
 	}
-    
-    
 
 }
