@@ -217,5 +217,7 @@ public class User {
 		this.id = id;
 	}
 
-	 
+    public Boolean getActivity() {
+        return activity;
+    }
 }

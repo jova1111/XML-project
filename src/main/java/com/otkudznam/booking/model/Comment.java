@@ -62,6 +62,8 @@ public class Comment {
     protected String content;
     @XmlAttribute(name = "approved")
     protected Boolean approved;
+    @XmlAttribute(name = "rating")
+    protected Integer rating;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
@@ -168,4 +170,19 @@ public class Comment {
 		return id;
 	}
 
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
