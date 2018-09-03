@@ -26,7 +26,7 @@ public class MessageController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value="/secure/messages/user/received", method = RequestMethod.GET)
+   /* @RequestMapping(value="/secure/messages/user/received", method = RequestMethod.GET)
     public ResponseEntity getAllReceivedUserMessages(HttpServletRequest request) {
         String email = (String) request.getAttribute("userEmail");
         User user = userService.findByEmail(email);
@@ -41,8 +41,8 @@ public class MessageController {
         List<Message> messages = messageService.findBySenderIdAndSendingUserType(user.getId(), UserType.REGULAR);
         return new ResponseEntity(messages, HttpStatus.OK);
     }
-
-    @RequestMapping(value="/secure/messages/user/{agentId}/send", method = RequestMethod.POST)
+*/
+    /*@RequestMapping(value="/secure/messages/user/{agentId}/send", method = RequestMethod.POST)
     public ResponseEntity sendMessageToAgent(HttpServletRequest request,
                                              @PathVariable("agentId") Long agentId,
                                              @RequestBody Message message) {
@@ -60,5 +60,5 @@ public class MessageController {
         messageService.saveOrUpdate(message);
         return new ResponseEntity(HttpStatus.OK);
     }
-
+*/
 }

@@ -11,8 +11,6 @@
             <xs:element maxOccurs="unbounded" minOccurs="0" name="favours" type="sys:Favour"/>
             <xs:element name="location" type="xs:string"/>
             <xs:element maxOccurs="unbounded" name="periods" type="sys:Period"/>
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="reservations"
-                type="sys:Reservations"/>
         </xs:sequence>
         <xs:attribute name="guestNumber" type="xs:int"/>
         <xs:attribute name="price" type="xs:double"/>
@@ -97,6 +95,45 @@
             <xs:sequence>
                 <xs:element name="reservation" type="sys:Reservations"/>
                 <xs:element name="lodgingName" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getAllRequest">
+        <xs:complexType>
+            <xs:attribute name="agentId" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getAllResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="lodging" type="sys:Lodging"/>
+                <xs:element name="agent" type="sys:Agent"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="favours" type="sys:Favour"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="lodgingTypes"
+                    type="sys:LodgingType"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="categories"
+                    type="sys:Category"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="reservations"
+                    type="sys:Reservations"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="comments" type="sys:Comment"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="messages" type="sys:Message"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="Message">
+        <xs:sequence>
+            <xs:element name="reservation" type="sys:Reservations"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:long"/>
+        <xs:attribute name="senderId" type="xs:string"/>
+        <xs:attribute name="reciverId" type="xs:string"/>
+        <xs:attribute name="content" type="xs:string"/>
+        <xs:attribute name="dateSent" type="xs:date"/>
+    </xs:complexType>
+    <xs:element name="senMessageRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="sys:Message"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

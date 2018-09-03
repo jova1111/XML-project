@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository extends PagingAndSortingRepository<Message, Long> {
-    List<Message> findByReceiverIdAndReceivingUserType(Long receiverId, UserType receivingUserType);
 
-    List<Message> findBySenderIdAndSendingUserType(Long senderId, UserType sendingUserType);
+	List<Message> getByReciverId(String reciverId);
+  //  List<Message> findByReceiverIdAndReceivingUserType(Long receiverId, UserType receivingUserType);
+
+   // List<Message> findBySenderIdAndSendingUserType(Long senderId, UserType sendingUserType);
 }

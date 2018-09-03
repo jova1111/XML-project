@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import com.otkudznam.booking.model.Comment;
+import com.otkudznam.booking.model.Lodging;
 
 @Repository
 public interface CommentRepository extends PagingAndSortingRepository<Comment, Long> {
@@ -14,4 +15,5 @@ public interface CommentRepository extends PagingAndSortingRepository<Comment, L
 	List<Comment> findAll();
 	List<Comment> findByApproved(boolean approved);
 	Optional<Comment> findById(Long id);
+	List<Comment> findByLodging(Lodging lodging);
 }

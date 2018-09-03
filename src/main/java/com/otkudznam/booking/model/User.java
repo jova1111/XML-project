@@ -44,14 +44,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "User")
 @Entity
 public class User {
-	 @Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
-	    protected Long id;
-    @XmlAttribute(name = "first_name")
+	@XmlAttribute(name = "first_name")
     protected String firstName;
     @XmlAttribute(name = "last_name")
     protected String lastName;
     @XmlAttribute(name = "email")
+    @Id
     protected String email;
     @XmlAttribute(name = "password")
     protected String password;
@@ -204,10 +202,7 @@ public class User {
         this.activity = value;
     }
 
-	public Long getId() {
-		// TODO Auto-generated method stub
-		return id;
-	}
+	
 
 	 public String getFullName() {
 	        return firstName + " " + lastName;

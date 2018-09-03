@@ -1,5 +1,6 @@
 package com.otkudznam.booking.repository;
 
+import com.otkudznam.booking.model.Agent;
 import com.otkudznam.booking.model.Lodging;
 import com.otkudznam.booking.model.Period;
 
@@ -18,6 +19,7 @@ public interface LodgingRepository extends PagingAndSortingRepository<Lodging, L
     List<Lodging> findByLocationIgnoreCaseContaining(String city);
     @Query("select r from Lodging r where r.name = ?1")
     Lodging findDate(String lodgingName);
+	List<Lodging> findByAgent(Agent agent);
 	
     
 }

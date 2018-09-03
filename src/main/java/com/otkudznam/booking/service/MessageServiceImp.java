@@ -13,7 +13,7 @@ public class MessageServiceImp implements MessageService {
     @Autowired
     private MessageRepository messageRepository;
 
-    @Override
+  /*  @Override
     public List<Message> findByReceiverIdAndReceivingUserType(Long receiverId, UserType receivingUserType) {
         return messageRepository.findByReceiverIdAndReceivingUserType(receiverId, receivingUserType);
     }
@@ -22,7 +22,7 @@ public class MessageServiceImp implements MessageService {
     public List<Message> findBySenderIdAndSendingUserType(Long senderId, UserType sendingUserType) {
         return messageRepository.findBySenderIdAndSendingUserType(senderId, sendingUserType);
     }
-
+*/
     @Override
     public Message saveOrUpdate(Message message) {
         return messageRepository.save(message);

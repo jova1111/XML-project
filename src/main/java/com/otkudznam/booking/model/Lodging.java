@@ -425,5 +425,9 @@ public class Lodging {
 			
 		}
 
+		public void setImageUrls(List<ImageUrl> imageUrls) {
+			this.imageUrls = imageUrls;
+		}
+
 		
 }

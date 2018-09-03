@@ -10,20 +10,23 @@ package com.booking.sys;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for LodgingType complex type.
+ * <p>Java class for anonymous complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="LodgingType">
+ * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="typeName" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;sequence>
+ *         &lt;element name="message" type="{http://www.booking.com/sys}Message"/>
+ *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -32,34 +35,37 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "LodgingType")
-public class LodgingType {
+@XmlType(name = "", propOrder = {
+    "message"
+})
+@XmlRootElement(name = "senMessageRequest")
+public class SenMessageRequest {
 
-    @XmlAttribute(name = "typeName")
-    protected String typeName;
+    @XmlElement(required = true)
+    protected Message message;
 
     /**
-     * Gets the value of the typeName property.
+     * Gets the value of the message property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Message }
      *     
      */
-    public String getTypeName() {
-        return typeName;
+    public Message getMessage() {
+        return message;
     }
 
     /**
-     * Sets the value of the typeName property.
+     * Sets the value of the message property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Message }
      *     
      */
-    public void setTypeName(String value) {
-        this.typeName = value;
+    public void setMessage(Message value) {
+        this.message = value;
     }
 
 }

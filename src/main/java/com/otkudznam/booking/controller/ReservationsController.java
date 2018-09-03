@@ -46,7 +46,7 @@ public class ReservationsController {
 	private ResponseEntity newReservation(@PathVariable("id")Long id, HttpServletRequest request) {
 	 	Optional<Reservations> reservation = reservationService.findById(id);
 		User user = userService.findByEmail(request.getAttribute("userEmail").toString());
-	 	if(!reservation.get().getUser().getId().equals(user.getId())) {
+	 	if(!reservation.get().getUser().getEmail().equals(user.getEmail())) {
 	 		return new ResponseEntity("Not allowed.", HttpStatus.FORBIDDEN);
 		}
 	 	return new ResponseEntity(reservation.get(), HttpStatus.OK);
@@ -59,7 +59,7 @@ public class ReservationsController {
 		List<Reservations> reservations = reservationService.findAll();
 		ArrayList<Reservations> temp = new ArrayList<Reservations>();
 		for(int i=0; i < reservations.size(); i++){
-			if(reservations.get(i).getUser().getId() == u.getId()){
+			if(reservations.get(i).getUser().getEmail() == u.getEmail()){
 				temp.add(reservations.get(i));
 			}
 		}
