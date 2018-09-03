@@ -14,5 +14,6 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     List<User> findByRole(String role);
     
     User findByEmail(String email);
+	void deleteByEmail(String email);
    
 }

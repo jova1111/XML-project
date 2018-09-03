@@ -3,6 +3,8 @@ package com.otkudznam.booking.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.otkudznam.booking.model.Lodging;
+import com.otkudznam.booking.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,11 @@ public class CommentServiceImp implements CommentService{
 	public Optional<Comment> findById(Long id) {
 		// TODO Auto-generated method stub
 		return commentRepository.findById(id);
+	}
+
+	@Override
+	public Comment findByPublisherAndLodging(User publisher, Lodging lodging) {
+		return commentRepository.findByPublisherAndLodging(publisher, lodging);
 	}
 
 }

@@ -14,17 +14,17 @@ public class MessageServiceImp implements MessageService {
     private MessageRepository messageRepository;
 
     @Override
-    public List<Message> findByReceiverIdAndReceivingUserType(Long receiverId, UserType receivingUserType) {
-        return messageRepository.findByReceiverIdAndReceivingUserType(receiverId, receivingUserType);
-    }
-
-    @Override
-    public List<Message> findBySenderIdAndSendingUserType(Long senderId, UserType sendingUserType) {
-        return messageRepository.findBySenderIdAndSendingUserType(senderId, sendingUserType);
-    }
-
-    @Override
     public Message saveOrUpdate(Message message) {
         return messageRepository.save(message);
+    }
+
+    @Override
+    public List<Message> getByReciverId(String reciverId) {
+        return messageRepository.getByReciverId(reciverId);
+    }
+
+    @Override
+    public List<Message> getBySenderId(String senderId) {
+        return messageRepository.getBySenderId(senderId);
     }
 }

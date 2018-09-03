@@ -11,4 +11,6 @@ import com.otkudznam.booking.model.Agent;
 public interface AgentRepository extends PagingAndSortingRepository<Agent, Long>{
 
 	List<Agent> findAll();
+
+	Agent findByBusinessId(String agentId);
 }

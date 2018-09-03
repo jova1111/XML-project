@@ -5,6 +5,8 @@ import java.util.Optional;
 
 
 import com.otkudznam.booking.model.Comment;
+import com.otkudznam.booking.model.Lodging;
+import com.otkudznam.booking.model.User;
 
 public interface CommentService {
 
@@ -12,4 +14,5 @@ public interface CommentService {
 	List<Comment> findAll();
 	List<Comment> findByApproved(boolean approved);
 	Optional<Comment> findById(Long id);
+	Comment findByPublisherAndLodging(User publisher, Lodging lodging);
 }

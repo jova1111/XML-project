@@ -6,7 +6,7 @@ import com.otkudznam.booking.model.UserType;
 import java.util.List;
 
 public interface MessageService {
-    List<Message> findByReceiverIdAndReceivingUserType(Long receiverId, UserType receivingUserType);
-    List<Message> findBySenderIdAndSendingUserType(Long senderId, UserType sendingUserType);
     Message saveOrUpdate(Message message);
+    List<Message> getByReciverId(String reciverId);
+    List<Message> getBySenderId(String senderId);
 }

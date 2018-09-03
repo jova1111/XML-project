@@ -13,20 +13,26 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.addressing.server.annotation.Action;
 
+import com.otkudznam.booking.model.Comment;
+import com.otkudznam.booking.model.GetAllRequest;
+import com.otkudznam.booking.model.GetAllResponse;
 import com.otkudznam.booking.model.GetLodgingRequest;
 import com.otkudznam.booking.model.GetLodgingResponse;
 import com.otkudznam.booking.model.ImageUrl;
 import com.otkudznam.booking.model.Lodging;
 import com.otkudznam.booking.model.Period;
 import com.otkudznam.booking.model.Reservations;
+import com.otkudznam.booking.model.SenMessageRequest;
 import com.otkudznam.booking.model.SetPeriodRequest;
 import com.otkudznam.booking.model.SetReservation;
 import com.otkudznam.booking.repository.AgentRepository;
 import com.otkudznam.booking.repository.CategoryRepository;
+import com.otkudznam.booking.repository.CommentRepository;
 import com.otkudznam.booking.repository.FavourRepository;
 import com.otkudznam.booking.repository.ImageUriRepository;
 import com.otkudznam.booking.repository.LodgingRepository;
 import com.otkudznam.booking.repository.LodgingTypeRepository;
+import com.otkudznam.booking.repository.MessageRepository;
 import com.otkudznam.booking.repository.PeriodRepository;
 import com.otkudznam.booking.repository.ReservationRepository;
 import com.otkudznam.booking.repository.UserRepository;
@@ -45,12 +51,15 @@ public class LodgingEndpoint {
 	private ImageUriRepository imageUrlRepository;
 	private PeriodRepository periodRepsoitory;
 	private ReservationRepository reservationRepository;
+	private CommentRepository commentRepository;
+	private MessageRepository messageRepository;
 	@Autowired
 	public LodgingEndpoint(LodgingRepository lodgingRepository,AgentRepository agentRepository,
 			CategoryRepository categoryRepository,FavourRepository favourRepository,
 			UserRepository userRepository,LodgingTypeRepository lodgingTypeRepository,
 			ImageUriRepository imageUrlRepository, PeriodRepository periodRepository,
-			ReservationRepository reservationRepository) {
+			ReservationRepository reservationRepository,CommentRepository commentRepository,
+			MessageRepository messageRepository) {
 		this.lodgingRepository = lodgingRepository;
 		this.agentRepository = agentRepository;
 		this.categoryRepository = categoryRepository;
@@ -60,6 +69,8 @@ public class LodgingEndpoint {
 		this.imageUrlRepository = imageUrlRepository;
 		this.periodRepsoitory = periodRepository;
 		this.reservationRepository = reservationRepository;
+		this.commentRepository = commentRepository;
+		this.messageRepository = messageRepository;
 	}
 
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getLodgingRequest")
@@ -147,6 +158,37 @@ public class LodgingEndpoint {
 		tempReservation.setActivated(true);
 		reservationRepository.save(tempReservation);
 	}
+	
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllRequest")
+	@ResponsePayload
+	@Action("http://www.booking.com/sys/getAll")
+	public GetAllResponse getAll(@RequestPayload GetAllRequest request) {
+		GetAllResponse response = new GetAllResponse();
+		response.setAgent(agentRepository.findByBusinessId(request.getAgentId()));
+		response.setLodging(lodgingRepository.findByAgent(response.getAgent()));
+		response.setCategories(categoryRepository.findAll());
+		response.setLodgingTypes(lodgingTypeRepository.findAll());
+		response.setFavours(favourRepository.findAll());
+		List<Reservations> reservations = new ArrayList<Reservations>();
+		for(Lodging lodging : response.getLodging()){
+			reservations.addAll(reservationRepository.findByLodging(lodging));
+		}
+		response.setReservations(reservations);
+		List<Comment> comments = new ArrayList<Comment>();
+		for(Lodging lodging : response.getLodging()){
+			comments.addAll(commentRepository.findByLodging(lodging));
+		}
+		response.setComments(comments);
+		
+		response.setMessages(messageRepository.getByReciverId(request.getAgentId()));
+		return response;
+	}
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "senMessageRequest")
+	@ResponsePayload
+	@Action("http://www.booking.com/sys/sendMessage")
+	public void sendMessage(@RequestPayload SenMessageRequest request) {
+		messageRepository.save(request.getMessage());
+	}
+	
+
 }
-
-

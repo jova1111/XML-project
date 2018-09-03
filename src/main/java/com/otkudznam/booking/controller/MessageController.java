@@ -30,7 +30,7 @@ public class MessageController {
     public ResponseEntity getAllReceivedUserMessages(HttpServletRequest request) {
         String email = (String) request.getAttribute("userEmail");
         User user = userService.findByEmail(email);
-        List<Message> messages = messageService.findByReceiverIdAndReceivingUserType(user.getId(), UserType.REGULAR);
+        List<Message> messages = messageService.getByReciverId(user.getEmail());
         return new ResponseEntity(messages, HttpStatus.OK);
     }
 
@@ -38,27 +38,23 @@ public class MessageController {
     public ResponseEntity getAllSentUserMessages(HttpServletRequest request) {
         String email = (String) request.getAttribute("userEmail");
         User user = userService.findByEmail(email);
-        List<Message> messages = messageService.findBySenderIdAndSendingUserType(user.getId(), UserType.REGULAR);
+        List<Message> messages = messageService.getBySenderId(user.getEmail());
         return new ResponseEntity(messages, HttpStatus.OK);
     }
 
     @RequestMapping(value="/secure/messages/user/{agentId}/send", method = RequestMethod.POST)
     public ResponseEntity sendMessageToAgent(HttpServletRequest request,
-                                             @PathVariable("agentId") Long agentId,
+                                             @PathVariable("agentId") String agentId,
                                              @RequestBody Message message) {
         if(message.getContent().isEmpty()) {
             return new ResponseEntity("Message content must not be empty.", HttpStatus.BAD_REQUEST);
         }
         String email = (String) request.getAttribute("userEmail");
         User user = userService.findByEmail(email);
-        message.setReceiverId(agentId);
-        message.setSenderId(user.getId());
-        message.setSendingUserType(UserType.REGULAR);
-        message.setReceivingUserType(UserType.AGENT);
-        message.setSenderUsername(user.getFullName());
+        message.setReciverId(agentId);
+        message.setSenderId(user.getEmail());
         message.setDateSent(new Date());
         messageService.saveOrUpdate(message);
         return new ResponseEntity(HttpStatus.OK);
     }
-
 }

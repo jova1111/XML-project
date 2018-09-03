@@ -44,13 +44,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "Agent")
 @Entity
 public class Agent {
-	 @Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
-	    protected Long id;
     @XmlAttribute(name = "firstName")
     protected String firstName;
     @XmlAttribute(name = "lastName")
     protected String lastName;
+    @Id
     @XmlAttribute(name = "businessId")
     protected String businessId;
     @XmlAttribute(name = "adress")
@@ -152,12 +150,5 @@ public class Agent {
         this.adress = value;
     }
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 }
